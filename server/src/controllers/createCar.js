@@ -12,7 +12,7 @@ const createCar = async (req, res, next) => {
             throw createHttpError(400, "Ivalid title, price or location.");
         }
 
-        if (price !== "number" && price < 0 && price < 1000000) {
+        if (price < 0 && price < 1000000) {
             throw createHttpError(400, "Invalid price");
         }
 
