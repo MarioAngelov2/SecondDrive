@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const upload = require("../utils/uploadFile");
+const upload = require('../utils/uploadFiles')
 const getCars = require("../controllers/getCars");
 const getCar = require("../controllers/getCar");
 const createCar = require("../controllers/createCar");

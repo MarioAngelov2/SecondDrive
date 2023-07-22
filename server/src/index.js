@@ -33,5 +33,5 @@ async function start() {
         res.status(statusCode).json({ error: errorMessage });
     });
 
-    pp.listen(port, () => console.log(`Server is listening on port: ${port}`));
+    app.listen(port, () => console.log(`Server is listening on port: ${port}`));
 }

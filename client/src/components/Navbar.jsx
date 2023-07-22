@@ -7,7 +7,7 @@ function NavigationBar() {
   return (
     <Navbar className='mt-3'>
       <Container>
-        <Navbar.Brand>CAR SHOP</Navbar.Brand>
+        <Navbar.Brand>SECOND DRIVE</Navbar.Brand>
         <div className={`${style.navBarText}`}>
             <Nav.Link href='/'>Home</Nav.Link>
             <Nav.Link>Register</Nav.Link>

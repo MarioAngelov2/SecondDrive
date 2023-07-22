@@ -64,7 +64,7 @@ function App() {
                     Добави обява
                 </Button>
             </div>
-            {cars.length > 0 ? carsGrid : <p>No cars to show</p>}
+            {cars.length > 0 ? carsGrid : <h4 className={`mt-5 ${styleUtils.flexCenter}`}>No cars to show</h4>}
         </>
     );
 
