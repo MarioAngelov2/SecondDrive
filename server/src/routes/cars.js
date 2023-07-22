@@ -14,7 +14,7 @@ router.post("/", upload.single("image"), createCar);
 
 router.get("/:id", getCar);
 
-router.patch("/edit/:id", upload.single("image"), updateCar);
+router.patch("/:id", upload.single("image"), updateCar);
 
 router.delete("/:id", deleteCar);
 
