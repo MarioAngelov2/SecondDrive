@@ -4,6 +4,8 @@ const createHttpError = require("http-errors");
 const cors = require("cors");
 const db = require("./models/index");
 
+start();
+
 async function start() {
     db();
 
