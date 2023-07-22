@@ -88,10 +88,6 @@ function App() {
                         />
                     }
                 />
-                <Route
-                    path="/edit/:id"
-                    element={<EditCar onClose={setIsModalOpen} />}
-                />
             </Routes>
             {isModalOpen && (
                 <CreateCar
