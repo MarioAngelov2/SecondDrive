@@ -1,0 +1,11 @@
+.navBarText {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+}
+
+/* .navBarText:hover {
+    transform: scale(1.05);
+    transition: 0.2s ease-in-out;
+} */
