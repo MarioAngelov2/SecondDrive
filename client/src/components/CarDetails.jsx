@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Image, Button } from "react-bootstrap";
+import { Container, Row, Col, Image, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import * as api from "../services/api";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { LiaBackspaceSolid } from "react-icons/lia";
 import { AiOutlineMail } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
+import CarEditModal from "./CarEditModal";
 
 import styleUtils from "../styles/utils.module.css";
 import style from "../styles/Details.module.css";
+
+const URL = "http://localhost:5003/";
 
 function CarDetails({ removeDeletedCar }) {
     const { id } = useParams();
     const [car, setCar] = useState(null);
     const navigate = useNavigate();
+
+    const [handleOpenEditModal, setHandleOpenEditModal] = useState(false);
 
     async function getCar() {
         const result = await api.getById(id);
@@ -30,8 +35,43 @@ function CarDetails({ removeDeletedCar }) {
         getCar();
     }, []);
 
+    async function onSubmit(data) {
+        try {
+            const formData = new FormData();
+
+            formData.append("title", data.title);
+            formData.append("price", data.price);
+            formData.append("engine", data.engine);
+            formData.append("description", data.description);
+            formData.append("mileage", data.mileage);
+            formData.append("location", data.location);
+            formData.append("image", data.image);
+
+            const response = await fetch(URL + id, {
+                method: "PATCH",
+                body: formData,
+            });
+
+            const result = await response.json();
+            setCar(result);
+
+            setHandleOpenEditModal(false);
+            return result;
+        } catch (error) {
+            console.error("Error updating car:", error);
+        }
+    }
+
+    const handleChange = () => {
+        setHandleOpenEditModal(true);
+    };
+
     if (!car) {
-        return <div>Loading...</div>;
+        return (
+            <div className={`mt-5 ${styleUtils.flexCenter}`}>
+                <Spinner animation="border" role="status"></Spinner>
+            </div>
+        );
     }
     return (
         <Container>
@@ -60,11 +100,13 @@ function CarDetails({ removeDeletedCar }) {
                         {car.location}
                     </div>
                     <div className={style.buttons}>
-                        <Link to={`/edit/${id}`}>
-                            <Button size="sm" variant="outline-dark">
-                                Редактирай обява
-                            </Button>
-                        </Link>
+                        <Button
+                            onClick={handleChange}
+                            size="sm"
+                            variant="outline-dark"
+                        >
+                            Редактирай обява
+                        </Button>
                         <Button size="sm" variant="outline-dark">
                             Добави в любими
                         </Button>
@@ -81,6 +123,13 @@ function CarDetails({ removeDeletedCar }) {
                     <Image className={style.image} src={car.image} fluid />
                 </Col>
             </Row>
+            {handleOpenEditModal && (
+                <CarEditModal
+                    onClose={setHandleOpenEditModal}
+                    onSubmit={onSubmit}
+                    initialValues={car}
+                />
+            )}
         </Container>
     );
 }
