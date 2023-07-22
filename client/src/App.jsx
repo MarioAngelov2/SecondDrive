@@ -64,7 +64,13 @@ function App() {
                     Добави обява
                 </Button>
             </div>
-            {cars.length > 0 ? carsGrid : <h4 className={`mt-5 ${styleUtils.flexCenter}`}>No cars to show</h4>}
+            {cars.length > 0 ? (
+                carsGrid
+            ) : (
+                <h4 className={`mt-5 ${styleUtils.flexCenter}`}>
+                    No cars to show
+                </h4>
+            )}
         </>
     );
 
@@ -75,7 +81,12 @@ function App() {
                 <Route path="/" element={homePage} />
                 <Route
                     path="/:id"
-                    element={<CarDetails removeDeletedCar={removeDeletedCar} />}
+                    element={
+                        <CarDetails
+                            removeDeletedCar={removeDeletedCar}
+                            onClose={setIsModalOpen}
+                        />
+                    }
                 />
                 <Route
                     path="/edit/:id"
