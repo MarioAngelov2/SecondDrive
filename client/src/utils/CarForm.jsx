@@ -11,7 +11,9 @@ function CarForm({ onSubmit, initialValues }) {
         watch,
         formState: { errors },
         setValue,
-    } = useForm({});
+    } = useForm({
+        defaultValues: initialValues
+    });
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
