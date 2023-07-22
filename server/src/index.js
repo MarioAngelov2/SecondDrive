@@ -3,6 +3,7 @@ const express = require("express");
 const createHttpError = require("http-errors");
 const cors = require("cors");
 const db = require("./models/index");
+const router = require("./routes/cars");
 
 start();
 
@@ -15,10 +16,12 @@ async function start() {
     app.use(cors());
     app.use(express.json());
 
+    app.use("/", router);
+
     app.use((req, res, next) => {
         next(createHttpError(404, "Endpoint not found."));
     });
-    
+
     app.use((err, req, res, next) => {
         console.log(err);
         let errorMessage = "An unknown error occurred.";
