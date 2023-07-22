@@ -1,17 +1,21 @@
 const { Router } = require("express");
-const CarsController = require("../controllers/Cars");
 const upload = require("../utils/uploadFile");
+const getCars = require("../controllers/getCars");
+const getCar = require("../controllers/getCar");
+const createCar = require("../controllers/createCar");
+const updateCar = require("../controllers/updateCar");
+const deleteCar = require("../controllers/deleteCar");
 
 const router = Router();
 
-router.get("/", CarsController.getCars);
+router.get("/", getCars);
 
-router.post("/", upload.single("image"), CarsController.createCar);
+router.post("/", upload.single("image"), createCar);
 
-router.get("/:id", CarsController.getCarById);
+router.get("/:id", getCar);
 
-router.patch("/edit/:id", upload.single("image"), CarsController.updateCar);
+router.patch("/edit/:id", upload.single("image"), updateCar);
 
-router.delete("/:id", CarsController.deleteCar);
+router.delete("/:id", deleteCar);
 
 module.exports = router;
