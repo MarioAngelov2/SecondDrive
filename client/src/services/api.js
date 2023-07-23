@@ -33,3 +33,21 @@ export async function deleteCar(id) {
         console.log(error);
     }
 }
+
+export async function createUser(user) {
+    try {
+        const response = await fetch(`${URL}/signup`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user),
+        });
+
+        if (response.ok) {
+            return response.json()
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
