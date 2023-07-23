@@ -5,8 +5,11 @@ const getCar = require("../controllers/getCar");
 const createCar = require("../controllers/createCar");
 const updateCar = require("../controllers/updateCar");
 const deleteCar = require("../controllers/deleteCar");
+const createUser = require('../controllers/register')
 
 const router = Router();
+
+router.post('/signup', createUser)
 
 router.get("/", getCars);
 

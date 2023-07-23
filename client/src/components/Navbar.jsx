@@ -10,7 +10,7 @@ function NavigationBar() {
         <Navbar.Brand>SECOND DRIVE</Navbar.Brand>
         <div className={`${style.navBarText}`}>
             <Nav.Link href='/'>Начало</Nav.Link>
-            <Nav.Link href='/register'>Регистрация</Nav.Link>
+            <Nav.Link href='/signup'>Регистрация</Nav.Link>
             <Nav.Link href='/login'>Вход</Nav.Link>
         </div>
       </Container>

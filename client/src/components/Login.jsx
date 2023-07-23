@@ -24,7 +24,7 @@ function Login() {
                     </Button>
                 </div>
             </Row>
-            <Link to='/register'>
+            <Link to='/signup'>
                 <div className={style.flexCenter}>
                     Нямаш регистрация? Направи си тук.
                 </div>
