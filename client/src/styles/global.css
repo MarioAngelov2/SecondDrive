@@ -3,3 +3,12 @@ body {
     background: #fafafa;
     font-family: 'Montserrat';
 }
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: rgb(84, 84, 84);
+}

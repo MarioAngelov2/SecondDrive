@@ -1,0 +1,11 @@
+.loginContainer {
+    background-color: rgb(255, 255, 255);
+    margin-top: 5rem;
+    padding: 50px;
+    border-radius: 20px;
+}
+
+.redirectRegister {
+    display: flex;
+    justify-content: flex-end;
+}
