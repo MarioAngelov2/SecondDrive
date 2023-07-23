@@ -6,11 +6,12 @@ import Cars from "./components/Cars";
 import CreateCar from "./components/CreateCar";
 import CarDetails from "./components/CarDetails";
 import NavigationBar from "./components/Navbar";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/global.css";
 import styleUtils from "./styles/utils.module.css";
-import EditCar from "./components/EditCar";
 
 function App() {
     const [cars, setCars] = useState([]);
@@ -79,6 +80,8 @@ function App() {
             <NavigationBar />
             <Routes>
                 <Route path="/" element={homePage} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
                 <Route
                     path="/:id"
                     element={
