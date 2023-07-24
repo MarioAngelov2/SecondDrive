@@ -1,6 +1,3 @@
-const UserModel = require("../models/User");
-const createHttpError = require("http-errors");
-
 const logout = async (req, res, next) => {
     req.session.destroy(error => {
         if (error) {
