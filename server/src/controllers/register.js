@@ -3,7 +3,6 @@ const createHttpError = require("http-errors");
 const bcrypt = require("bcrypt");
 
 const createUser = async (req, res, next) => {
-    console.log(req.body);
     const { username, email, password } = req.body;
 
     try {
@@ -31,11 +30,11 @@ const createUser = async (req, res, next) => {
             password: hashedPassword,
         });
 
-        req.session.userId = newUser._id
+        req.session.userId = newUser._id;
 
         res.status(201).json(newUser);
     } catch (error) {
-        console.log(error);
+        next(error);
     }
 };
 

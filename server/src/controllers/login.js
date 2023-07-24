@@ -27,7 +27,7 @@ const loginUser = async (req, res, next) => {
         req.session.userId = user._id;
         res.status(201).json(user);
     } catch (error) {
-        console.log(error);
+        next(error)
     }
 };
 
