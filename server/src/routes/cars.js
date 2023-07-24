@@ -7,12 +7,15 @@ const updateCar = require("../controllers/updateCar");
 const deleteCar = require("../controllers/deleteCar");
 const createUser = require("../controllers/register");
 const loginUser = require("../controllers/login");
+const authenticatedUser = require('../controllers/auth')
 
 const router = Router();
 
-router.post("/login", loginUser);
+router.get('/', authenticatedUser)
 
 router.post("/signup", createUser);
+
+router.post("/login", loginUser);
 
 router.get("/", getCars);
 
