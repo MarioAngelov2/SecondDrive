@@ -10,7 +10,7 @@ const loginUser = require("../controllers/login");
 
 const router = Router();
 
-router.get("/login", loginUser);
+router.post("/login", loginUser);
 
 router.post("/signup", createUser);
 
