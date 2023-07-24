@@ -4,6 +4,7 @@ const createHttpError = require("http-errors");
 const cors = require("cors");
 const db = require("./models/index");
 const router = require("./routes/cars");
+const session = require("express-session");
 
 start();
 
@@ -15,6 +16,8 @@ async function start() {
 
     app.use(cors());
     app.use(express.json());
+
+    app.use(session())
 
     app.use("/", router);
 
