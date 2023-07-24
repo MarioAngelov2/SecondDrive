@@ -39,15 +39,33 @@ export async function createUser(user) {
         const response = await fetch(`${URL}/signup`, {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(user),
         });
 
         if (response.ok) {
-            return response.json()
+            return response.json();
         }
     } catch (error) {
-        console.log(error)
+        console.log(error);
+    }
+}
+
+export async function loginUser(user) {
+    try {
+        const response = await fetch(`${URL}/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+        });
+
+        if (response.ok) {
+            return response.json();
+        }
+    } catch (error) {
+        console.log(error);
     }
 }
