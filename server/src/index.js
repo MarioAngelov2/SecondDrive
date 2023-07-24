@@ -5,6 +5,7 @@ const cors = require("cors");
 const db = require("./models/index");
 const router = require("./routes/cars");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 start();
 
@@ -17,7 +18,20 @@ async function start() {
     app.use(cors());
     app.use(express.json());
 
-    app.use(session())
+    app.use(
+        session({
+            secret: process.env.SESSION_KEY,
+            resave: false,
+            saveUninitialized: false,
+            cookie: {
+                maxAge: 60 * 60 * 1000,
+            },
+            rolling: true,
+            store: MongoStore.create({
+                mongoUrl: process.env.MONGO_CONNECT_STRING,
+            }),
+        })
+    );
 
     app.use("/", router);
 
