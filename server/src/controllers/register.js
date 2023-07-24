@@ -31,6 +31,8 @@ const createUser = async (req, res, next) => {
             password: hashedPassword,
         });
 
+        req.session.userId = newUser._id
+
         res.status(201).json(newUser);
     } catch (error) {
         console.log(error);
