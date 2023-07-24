@@ -12,7 +12,7 @@ const loginUser = async (req, res, next) => {
 
         const user = await UserModel.findOne({ usernme: username }).select(
             "+password +email"
-        );
+        ).exec();
 
         if (!user) {
             throw createHttpError(401, "Ivalid credentials");
@@ -25,7 +25,7 @@ const loginUser = async (req, res, next) => {
         }
 
         req.session.userId = user._id;
-        req.status(201).json(user);
+        res.status(201).json(user);
     } catch (error) {
         console.log(error);
     }
