@@ -22,4 +22,4 @@ const getCar = async (req, res, next) => {
     }
 };
 
-module.exports = getCar;
+module.exports = getCar; 
