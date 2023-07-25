@@ -6,7 +6,7 @@ const db = require("./models/index");
 const router = require("./routes/cars");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-const userRoutes = require('./routes/user')
+const userRoutes = require("./routes/user");
 
 start();
 
@@ -26,6 +26,7 @@ async function start() {
             saveUninitialized: false,
             cookie: {
                 maxAge: 60 * 60 * 1000,
+                sameSite: "lax"
             },
             rolling: true,
             store: MongoStore.create({
