@@ -9,25 +9,16 @@ const createUser = require("../controllers/register");
 const loginUser = require("../controllers/login");
 const authenticatedUser = require("../controllers/auth");
 const logout = require("../controllers/logout");
+const requiresAuth = require("../middleware/isAuthenticated");
 
 const router = Router();
 
-router.get("/", authenticatedUser);
-
-router.post("/signup", createUser);
-
-router.post("/login", loginUser);
-
-router.get("/logout", logout);
-
+// Public routes that don't require authentication
 router.get("/", getCars);
-
-router.post("/", upload.single("image"), createCar);
-
 router.get("/:id", getCar);
 
-router.patch("/:id", upload.single("image"), updateCar);
-
+router.post("/create", upload.single("image"), createCar);
+router.patch("/update/:id", upload.single("image"), updateCar);
 router.delete("/:id", deleteCar);
 
 module.exports = router;
