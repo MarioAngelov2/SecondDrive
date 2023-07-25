@@ -11,7 +11,7 @@ import CarEditModal from "./CarEditModal";
 import styleUtils from "../styles/utils.module.css";
 import style from "../styles/Details.module.css";
 
-const URL = "http://localhost:5003/";
+const URL = "http://localhost:5003/update/";
 
 function CarDetails({ removeDeletedCar }) {
     const { id } = useParams();
