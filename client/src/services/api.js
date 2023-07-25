@@ -69,3 +69,7 @@ export async function loginUser(user) {
         console.log(error);
     }
 }
+
+export async function logout() {
+    await fetch(`${URL}/logout`, { method: "GET" });
+}
