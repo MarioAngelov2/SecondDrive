@@ -46,7 +46,7 @@ function Register() {
                             {...register("email", { required: "Въведи имейл" })}
                             isInvalid={!!errors.email}
                             className="text-muted"
-                            type="text"
+                            type="email"
                         />
                         <Form.Control.Feedback type="invalid">
                             {errors.email?.message}
