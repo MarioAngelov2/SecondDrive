@@ -6,6 +6,7 @@ const db = require("./models/index");
 const router = require("./routes/cars");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const userRoutes = require('./routes/user')
 
 start();
 
@@ -33,6 +34,7 @@ async function start() {
         })
     );
 
+    app.use("/users", userRoutes);
     app.use("/", router);
 
     app.use((req, res, next) => {
