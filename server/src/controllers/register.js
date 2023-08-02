@@ -25,12 +25,10 @@ const createUser = async (req, res, next) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = await UserModel.create({
-            usernme: username,
+            username: username,
             email: email,
             password: hashedPassword,
         });
-
-        req.session.userId = newUser._id;
 
         res.status(201).json(newUser);
     } catch (error) {
