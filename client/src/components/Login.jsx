@@ -6,9 +6,11 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as api from "../services/api";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function Login() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [_, setCookies] = useCookies(["accessToken"])
 
     const {
         handleSubmit,
@@ -18,9 +20,12 @@ function Login() {
     } = useForm();
 
     async function onSubmit(data) {
-        await api.loginUser(data);
+       const response = await api.loginUser(data);
+        console.log(response)
+        setCookies("accessToken", response.token);
+        window.localStorage.setItem("userID", response.userID)
         reset();
-        navigate('/')
+        navigate("/");
     }
 
     return (
@@ -49,7 +54,7 @@ function Login() {
                             })}
                             isInvalid={!!errors.password}
                             className="text-muted"
-                            type="text"
+                            type="password"
                         />
                         <Form.Control.Feedback type="invalid">
                             {errors.password?.message}
