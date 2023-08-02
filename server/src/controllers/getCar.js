@@ -6,7 +6,7 @@ const getCar = async (req, res, next) => {
     const id = req.params.id;
 
     try {
-        if (!mongoose.isValidObjectId) {
+        if (!mongoose.isValidObjectId(id)) {
             throw createHttpError(400, "Invalid car id");
         }
 
