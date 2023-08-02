@@ -18,23 +18,6 @@ async function start() {
     app.use(cors());
     app.use(express.json());
 
-    // app.use(
-    //     session({
-    //         secret: 'some.secret.key',
-    //         resave: false,
-    //         saveUninitialized: false,
-    //         cookie: {
-    //             maxAge: 60 * 60 * 1000,
-    //             sameSite: "lax",
-    //             httpOnly: true,
-    //         },
-    //         rolling: true,
-    //         store: MongoStore.create({
-    //             mongoUrl: process.env.MONGO_CONNECT_STRING,
-    //         }),
-    //     })
-    // );
-
     app.use("/", router);
 
     app.use((req, res, next) => {
