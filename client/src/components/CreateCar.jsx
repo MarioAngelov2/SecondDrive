@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import CarForm from "../utils/CarForm";
 
-const URL = "http://localhost:5003/user/create";
+const URL = "http://localhost:5003/create";
 
 function CreateCar({ onClose, addNewCar }) {
 
