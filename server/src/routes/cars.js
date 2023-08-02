@@ -7,15 +7,17 @@ const updateCar = require("../controllers/updateCar");
 const deleteCar = require("../controllers/deleteCar");
 const createUser = require("../controllers/register");
 const loginUser = require("../controllers/login");
-const authenticatedUser = require("../controllers/auth");
 const logout = require("../controllers/logout");
-const requiresAuth = require("../middleware/isAuthenticated");
 
 const router = Router();
 
 // Public routes that don't require authentication
 router.get("/", getCars);
 router.get("/:id", getCar);
+
+router.post("/signup", createUser);
+router.post("/login", loginUser);
+router.get("/logout", logout);
 
 router.post("/create", upload.single("image"), createCar);
 router.patch("/update/:id", upload.single("image"), updateCar);
