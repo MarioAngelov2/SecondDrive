@@ -77,27 +77,27 @@ function App() {
 
     return (
         <Container>
-            <NavigationBar />
-            <Routes>
-                <Route path="/" element={homePage} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Register />} />
-                <Route
-                    path="/:id"
-                    element={
-                        <CarDetails
-                            removeDeletedCar={removeDeletedCar}
-                            onClose={setIsModalOpen}
-                        />
-                    }
-                />
-            </Routes>
-            {isModalOpen && (
-                <CreateCar
-                    onClose={() => setIsModalOpen(false)}
-                    addNewCar={addNewCar}
-                />
-            )}
+                <NavigationBar />
+                <Routes>
+                    <Route path="/" element={homePage} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Register />} />
+                    <Route
+                        path="/:id"
+                        element={
+                            <CarDetails
+                                removeDeletedCar={removeDeletedCar}
+                                onClose={setIsModalOpen}
+                            />
+                        }
+                    />
+                </Routes>
+                {isModalOpen && (
+                    <CreateCar
+                        onClose={() => setIsModalOpen(false)}
+                        addNewCar={addNewCar}
+                    />
+                )}
         </Container>
     );
 }
