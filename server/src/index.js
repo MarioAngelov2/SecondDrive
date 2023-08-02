@@ -6,7 +6,6 @@ const db = require("./models/index");
 const router = require("./routes/cars");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-const userRoutes = require("./routes/user");
 
 start();
 
@@ -19,23 +18,23 @@ async function start() {
     app.use(cors());
     app.use(express.json());
 
-    app.use(
-        session({
-            secret: process.env.SESSION_KEY,
-            resave: false,
-            saveUninitialized: false,
-            cookie: {
-                maxAge: 60 * 60 * 1000,
-                sameSite: "lax"
-            },
-            rolling: true,
-            store: MongoStore.create({
-                mongoUrl: process.env.MONGO_CONNECT_STRING,
-            }),
-        })
-    );
+    // app.use(
+    //     session({
+    //         secret: 'some.secret.key',
+    //         resave: false,
+    //         saveUninitialized: false,
+    //         cookie: {
+    //             maxAge: 60 * 60 * 1000,
+    //             sameSite: "lax",
+    //             httpOnly: true,
+    //         },
+    //         rolling: true,
+    //         store: MongoStore.create({
+    //             mongoUrl: process.env.MONGO_CONNECT_STRING,
+    //         }),
+    //     })
+    // );
 
-    app.use("/users", userRoutes);
     app.use("/", router);
 
     app.use((req, res, next) => {
