@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 import style from "../styles/Navbar.module.css";
 
 function NavigationBar() {
     const [cookies, setCookies] = useCookies();
+    const navigate = useNavigate();
+
+    const logout = () => {
+        setCookies("accessToken", "");
+        window.localStorage.clear("userID");
+    };
 
     return (
         <Navbar sticky="top" expand="md" className="mt-3">
@@ -17,7 +23,9 @@ function NavigationBar() {
                         <div className={`${style.navBarText}`}>
                             <Nav.Link href="/">Начало</Nav.Link>
                             {cookies.accessToken ? (
-                                <Nav.Link href="/logout">Изход</Nav.Link>
+                                <Nav.Link onClick={logout} href="/">
+                                    Изход
+                                </Nav.Link>
                             ) : (
                                 <>
                                     <Nav.Link href="/signup">
