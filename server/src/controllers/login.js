@@ -1,5 +1,6 @@
 const UserModel = require("../models/User");
 const createHttpError = require("http-errors");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const loginUser = async (req, res, next) => {
@@ -10,9 +11,9 @@ const loginUser = async (req, res, next) => {
             throw createHttpError(400, "Parameters missing");
         }
 
-        const user = await UserModel.findOne({ usernme: username }).select(
-            "+password +email"
-        ).exec();
+        const user = await UserModel.findOne({ username: username })
+            .select("+password +email")
+            .exec();
 
         if (!user) {
             throw createHttpError(401, "Ivalid credentials");
@@ -24,12 +25,11 @@ const loginUser = async (req, res, next) => {
             throw createHttpError(401, "Invalid credentials");
         }
 
-        req.session.userId = user._id;
-        res.status(201).json(user);
+        const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
+        res.status(201).json({ token, userID: user._id });
     } catch (error) {
-        next(error)
+        next(error);
     }
 };
 
 module.exports = loginUser;
- 
