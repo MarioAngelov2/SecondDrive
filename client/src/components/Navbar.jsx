@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { useCookies } from "react-cookie";
 
 import style from "../styles/Navbar.module.css";
 
 function NavigationBar() {
+    const [cookies, setCookies] = useCookies();
 
     return (
         <Navbar sticky="top" expand="md" className="mt-3">
@@ -14,8 +16,16 @@ function NavigationBar() {
                     <Nav className="ms-auto">
                         <div className={`${style.navBarText}`}>
                             <Nav.Link href="/">Начало</Nav.Link>
-                            <Nav.Link href="/signup">Регистрация</Nav.Link>
-                            <Nav.Link href="/login">Вход</Nav.Link>
+                            {cookies.accessToken ? (
+                                <Nav.Link href="/logout">Изход</Nav.Link>
+                            ) : (
+                                <>
+                                    <Nav.Link href="/signup">
+                                        Регистрация
+                                    </Nav.Link>
+                                    <Nav.Link href="/login">Вход</Nav.Link>
+                                </>
+                            )}
                         </div>
                     </Nav>
                 </Navbar.Collapse>
