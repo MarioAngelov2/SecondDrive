@@ -7,6 +7,7 @@ import { LiaBackspaceSolid } from "react-icons/lia";
 import { AiOutlineMail } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
 import CarEditModal from "./CarEditModal";
+import { useCookies } from "react-cookie";
 
 import styleUtils from "../styles/utils.module.css";
 import style from "../styles/Details.module.css";
@@ -14,11 +15,20 @@ import style from "../styles/Details.module.css";
 const URL = "http://localhost:5003/update/";
 
 function CarDetails({ removeDeletedCar }) {
+    const [cookies] = useCookies(["accessToken"]);
     const { id } = useParams();
     const [car, setCar] = useState(null);
     const navigate = useNavigate();
 
     const [handleOpenEditModal, setHandleOpenEditModal] = useState(false);
+
+    const handleAddFavoriteCar = async () => {
+        try {
+            await api.addToFavorites(id, cookies.accessToken);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     async function getCar() {
         const result = await api.getById(id);
@@ -107,7 +117,11 @@ function CarDetails({ removeDeletedCar }) {
                         >
                             Редактирай обява
                         </Button>
-                        <Button size="sm" variant="outline-dark">
+                        <Button
+                            onClick={handleAddFavoriteCar}
+                            size="sm"
+                            variant="outline-dark"
+                        >
                             Добави в любими
                         </Button>
                         <Button
