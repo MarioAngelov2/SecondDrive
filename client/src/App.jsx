@@ -8,6 +8,7 @@ import CarDetails from "./components/CarDetails";
 import NavigationBar from "./components/Navbar";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import { useCookies } from "react-cookie";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/global.css";
@@ -16,6 +17,7 @@ import styleUtils from "./styles/utils.module.css";
 function App() {
     const [cars, setCars] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [cookies] = useCookies(["accessToken"]);
 
     const handleOpen = () => setIsModalOpen(true);
 
@@ -57,13 +59,15 @@ function App() {
             <div
                 className={`${styleUtils.blockCenter} ${styleUtils.flexCenter}`}
             >
-                <Button
-                    variant="outline-dark"
-                    onClick={handleOpen}
-                    className={`mt-4 ${styleUtils.blockCenter}`}
-                >
-                    Добави обява
-                </Button>
+                {cookies.accessToken ? (
+                    <Button
+                        variant="outline-dark"
+                        onClick={handleOpen}
+                        className={`mt-4 ${styleUtils.blockCenter}`}
+                    >
+                        Добави обява
+                    </Button>
+                ) : null}
             </div>
             {cars.length > 0 ? (
                 carsGrid
@@ -77,27 +81,27 @@ function App() {
 
     return (
         <Container>
-                <NavigationBar />
-                <Routes>
-                    <Route path="/" element={homePage} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Register />} />
-                    <Route
-                        path="/:id"
-                        element={
-                            <CarDetails
-                                removeDeletedCar={removeDeletedCar}
-                                onClose={setIsModalOpen}
-                            />
-                        }
-                    />
-                </Routes>
-                {isModalOpen && (
-                    <CreateCar
-                        onClose={() => setIsModalOpen(false)}
-                        addNewCar={addNewCar}
-                    />
-                )}
+            <NavigationBar />
+            <Routes>
+                <Route path="/" element={homePage} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Register />} />
+                <Route
+                    path="/:id"
+                    element={
+                        <CarDetails
+                            removeDeletedCar={removeDeletedCar}
+                            onClose={setIsModalOpen}
+                        />
+                    }
+                />
+            </Routes>
+            {isModalOpen && (
+                <CreateCar
+                    onClose={() => setIsModalOpen(false)}
+                    addNewCar={addNewCar}
+                />
+            )}
         </Container>
     );
 }
