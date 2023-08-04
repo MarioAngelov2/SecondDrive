@@ -3,7 +3,7 @@ const CarsModel = require("../models/Cars");
 const createHttpError = require("http-errors");
 
 const createCar = async (req, res, next) => {
-    const { title, price, description, engine, mileage, location } = req.body;
+    const { title, price, description, engine, mileage, location, userOwner } = req.body;
 
     const image = req.file.filename;
 
@@ -16,18 +16,23 @@ const createCar = async (req, res, next) => {
             throw createHttpError(400, "Invalid price");
         }
 
-        const newCar = await CarsModel.create({
+        const userOwner = req.user.id
+
+        const newCar = new CarsModel({
             title,
             price,
-            description,
+            description, 
             engine,
             mileage,
             location,
             image,
+            userOwner
         });
+
+        await newCar.save();
         res.status(201).json(newCar);
     } catch (error) {
-        next(error)
+        next(error);
     }
 };
 
