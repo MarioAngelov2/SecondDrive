@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import CarForm from "../utils/CarForm";
+import { useCookies } from "react-cookie";
 
 const URL = "http://localhost:5003/create";
 
 function CreateCar({ onClose, addNewCar }) {
+    const [cookies] = useCookies(["accessToken"]);
 
     async function onSubmit(data) {
         try {
@@ -20,6 +22,9 @@ function CreateCar({ onClose, addNewCar }) {
 
             const response = await fetch(URL, {
                 method: "POST",
+                headers: {
+                    Authorization: `Bearer ${cookies.accessToken}`,
+                },
                 body: formData,
             });
 
