@@ -16,6 +16,7 @@ const URL = "http://localhost:5003/update/";
 
 function CarDetails({ removeDeletedCar }) {
     const [cookies] = useCookies(["accessToken"]);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const { id } = useParams();
     const [car, setCar] = useState(null);
     const navigate = useNavigate();
@@ -43,7 +44,8 @@ function CarDetails({ removeDeletedCar }) {
 
     useEffect(() => {
         getCar();
-    }, []);
+        setIsLoggedIn(!!cookies.accessToken);
+    }, [cookies]);
 
     async function onSubmit(data) {
         try {
@@ -83,6 +85,29 @@ function CarDetails({ removeDeletedCar }) {
             </div>
         );
     }
+
+    const isOwnerButtons =
+        car.userOwner && isLoggedIn ? (
+            <div className={style.buttons}>
+                <Button onClick={handleChange} size="sm" variant="outline-dark">
+                    Редактирай обява
+                </Button>
+                <Button
+                    onClick={handleAddFavoriteCar}
+                    size="sm"
+                    variant="outline-dark"
+                >
+                    Добави в любими
+                </Button>
+                <Button
+                    onClick={() => deleteCar(car._id)}
+                    size="sm"
+                    variant="outline-danger"
+                >
+                    Изтрий обява
+                </Button>
+            </div>
+        ) : null;
     return (
         <Container>
             <Row className={`mt-5`}>
@@ -109,29 +134,7 @@ function CarDetails({ removeDeletedCar }) {
                         <CiLocationOn size={23} />
                         {car.location}
                     </div>
-                    <div className={style.buttons}>
-                        <Button
-                            onClick={handleChange}
-                            size="sm"
-                            variant="outline-dark"
-                        >
-                            Редактирай обява
-                        </Button>
-                        <Button
-                            onClick={handleAddFavoriteCar}
-                            size="sm"
-                            variant="outline-dark"
-                        >
-                            Добави в любими
-                        </Button>
-                        <Button
-                            onClick={() => deleteCar(car._id)}
-                            size="sm"
-                            variant="outline-danger"
-                        >
-                            Изтрий обява
-                        </Button>
-                    </div>
+                    {isOwnerButtons}
                 </Col>
                 <Col md={7}>
                     <Image className={style.image} src={car.image} fluid />
