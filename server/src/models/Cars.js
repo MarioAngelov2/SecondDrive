@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, Types } = require("mongoose");
 
 const carsSchema = new Schema(
     {
@@ -9,6 +9,10 @@ const carsSchema = new Schema(
         mileage: { type: Number },
         location: { type: String, required: true },
         image: { type: String, required: false },
+        userOwner: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+        },
     },
     { timestamps: true }
 );
