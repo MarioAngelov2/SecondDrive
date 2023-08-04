@@ -1,12 +1,10 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
 
 import style from "../styles/Navbar.module.css";
 
 function NavigationBar() {
     const [cookies, setCookies] = useCookies();
-    const navigate = useNavigate();
 
     const logout = () => {
         setCookies("accessToken", "");
@@ -23,9 +21,13 @@ function NavigationBar() {
                         <div className={`${style.navBarText}`}>
                             <Nav.Link href="/">Начало</Nav.Link>
                             {cookies.accessToken ? (
-                                <Nav.Link onClick={logout} href="/">
-                                    Изход
-                                </Nav.Link>
+                                <>
+                                    <Nav.Link>Моите обяви</Nav.Link>
+                                    <Nav.Link>Любими обяви</Nav.Link>
+                                    <Nav.Link onClick={logout} href="/">
+                                        Изход
+                                    </Nav.Link>
+                                </>
                             ) : (
                                 <>
                                     <Nav.Link href="/signup">
