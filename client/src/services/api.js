@@ -73,3 +73,17 @@ export async function loginUser(user) {
 export async function logout() {
     await fetch(`${URL}/logout`, { method: "GET" });
 }
+
+export async function addToFavorites(id,accessToken) {
+
+    const response = await fetch("http://localhost:5003/favorite", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ carID: id }),
+    });
+
+    return response.json();
+}
