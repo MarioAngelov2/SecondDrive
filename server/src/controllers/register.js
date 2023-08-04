@@ -24,12 +24,13 @@ const createUser = async (req, res, next) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = await UserModel.create({
+        const newUser = new UserModel({
             username: username,
             email: email,
             password: hashedPassword,
         });
 
+        await newUser.save()
         res.status(201).json(newUser);
     } catch (error) {
         next(error);
